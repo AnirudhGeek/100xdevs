@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <div>
+        <div id="todo-1">
+            <h4>1. Take class</h4>
+            <button onclick="deleteTodo(1)">Delete</button>
+        </div>
+        <div id="todo-2">
+            <h4>2. Go out to eat</h4>
+            <button onclick="deleteTodo(2)">Delete</button>
+        </div>
+    </div>
+    <div>
+        <input type="text">
+        <button>Add todo</button>
+    </div>
+</body>
+<script>
+    //deleting an element
+    function deleteTodo(input){
+        const element = document.getElementById("todo-"+input)
+        element.parentElement.removeChild(element)
+    }
+
+    //append a new child 
+    let element = document.createElement('div')
+    element.innerHTML = "Hey there!!"
+    document.querySelector('div').appendChild(element)  
+
+</script>
+</html>

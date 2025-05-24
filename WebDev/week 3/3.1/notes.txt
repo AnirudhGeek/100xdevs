@@ -1,0 +1,70 @@
+DOM
+
+FETCHING ELEMENTS :-
+
+    1. querySelector 
+            =>it will select the first tag which has given 
+            => so if we write something in the input tag and write this script in console 
+    
+            eg,
+            const el1 = document.querySelector("input")
+            el1.value 
+    
+            => then we can get what we have written inside the first input tag
+    
+    
+            eg, 
+            const el2 = document.querySelector("h1")    //it will select Todo List
+            el2.innerHTML
+    
+            => then this will give output as Todo List 
+            => for fetching from input tag we use .value and from fetching it from the html content eg h1 h2 or button tag we use innerHTML
+    
+    2. querySelectorAll
+            => if you want all the elements of that tag
+            => document.querySelectorAll("h4")
+            => document.querySelectorAll("h4")[2]
+
+    3. getElementById
+            => select by giving the specific id for that tag
+            => document.getElementById("btn1")
+            => if we are doing it with querySelector only then we can use it like 
+            => document.querySelector("#btn1")
+    
+    4. getElementsByClassName
+            => document.getElementsByClassName(".todo")
+
+
+UPDATING ELEMENTS
+    1. updating in console 
+        => document.querySelectorAll("h4")[1].innerHTML = "asdfasdfa"
+    
+    2. counter
+        =>  let count = 0
+            function callback(){
+                setInterval(() => {
+                    document.querySelectorAll('h4')[1].innerHTML = count
+                    count++
+                }, 1000);
+            }
+
+            callback()
+
+
+DELETING ELEMENTS
+    => we have to go to the parent node firstly to delete 
+
+    => eg
+            function deleteTodo(input){
+                const element = document.getElementById("todo-"+input)
+                element.parentElement.removeChild(element)
+            }
+    
+
+ADD ELEMENTS 
+
+    we create an element and we have to get the parent first then we can only append the child into it 
+
+    => let divEl = document.createElement("div")
+        divEl.innerHTML = "hey there2222"
+        document.querySelector("div").appendChild(divEl)
