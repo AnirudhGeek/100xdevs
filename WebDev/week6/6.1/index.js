@@ -54,7 +54,7 @@ app.post("/signin", function (req, res) {
         })
     }else{
         res.status(400).json({
-            msg : "User already exist"
+            msg : "User doesn't exist"
         })
     }
     console.log(users)
