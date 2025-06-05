@@ -20,8 +20,6 @@ function generateToken(){
     return token
 }
 
-
-
 app.use(express.json())
 
 app.post("/signup", function (req, res) {

@@ -7,8 +7,21 @@ const PORT = 3000;
 
 const users = [];
 
-
 app.use(express.json());
+
+//auth middleware
+function authMiddleware(req, res, next) {
+  const token = req.headers.token;
+  const decodedData = jwt.verify(token, JWT_SECRET);
+  if (decodedData.username) {
+    req.username = decodedData.username;  //it changes the request object so that username is available to other functions
+    next();
+  } else {
+    res.status(400).json({
+      msg: "You are not logged in",
+    });
+  }
+}
 
 app.post("/signup", (req, res) => {
   const username = req.body.username;
@@ -51,22 +64,13 @@ app.post("/signin", (req, res) => {
 });
 
 //creating an authenticated endpoint
-app.get('/me',(req,res)=>{
-    const token = req.headers.token
-    const decodeInfo = jwt.verify(token,JWT_SECRET)
-    const username = decodeInfo.username
-    const user = users.find(u=>u.username === username)
-    if(user){
-        res.json({
-            username : user.username,
-            password : user.password
-        })
-    }else{
-        res.status(404).json({
-            msg : "User not found"
-        })
-    }
-})
+app.get("/me", authMiddleware, (req, res) => {
+  const user = users.find((u) => u.username === req.username);
+  res.json({
+    username: user.username,
+    password: user.password,
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server started at port ${PORT}`);
