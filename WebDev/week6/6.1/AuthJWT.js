@@ -23,19 +23,28 @@ function authMiddleware(req, res, next) {
   }
 }
 
+//hosting both backend and frontend on localhost:3000
+app.get('/',(req,res)=>{
+  res.sendFile(__dirname+"/public/index.html")
+})
+
 app.post("/signup", (req, res) => {
   const username = req.body.username;
-  const password = req.body.password;
-
-  users.push({
-    username: username,
-    password: password,
-  });
-
-  res.json({
-    msg: "Your are successfully signed up",
-  });
-  console.log(users);
+  if (users.find((u) => u.username === username)) {
+    res.status(404).json({
+      msg: "User already exist",
+    });
+  } else {
+    const password = req.body.password;
+    users.push({
+      username: username,
+      password: password,
+    });
+    res.status(200).json({
+      msg: "signed up successfully",
+    });
+    console.log(users);
+  }
 });
 
 app.post("/signin", (req, res) => {
@@ -48,7 +57,7 @@ app.post("/signin", (req, res) => {
 
   if (user) {
     const token = jwt.sign({
-        username : username
+        username : user.username
     },JWT_SECRET)
     user.token = token;
     res.json({
@@ -68,7 +77,7 @@ app.get("/me", authMiddleware, (req, res) => {
   const user = users.find((u) => u.username === req.username);
   res.json({
     username: user.username,
-    password: user.password,
+    password: user.password
   });
 });
 
