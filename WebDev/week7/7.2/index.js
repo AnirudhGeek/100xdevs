@@ -1,41 +1,57 @@
 const express = require("express");
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcrypt");
 const { UserModel, TodoModel } = require("./db");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "dfasdfasdf34356";
 const app = express();
+const { z } = require("zod");
 
 const PORT = 3000;
 
 mongoose.connect(
-  "mongodb+srv://annigeek:re0f806Mm3iz8q0b@cluster0.8cyirhw.mongodb.net/todo-app-database1"
+  ""
 );
 
 app.use(express.json());
 
 //auth middleware
-function auth(req,res,next){
-  const token = req.headers.token
-  const decodedToken = jwt.verify(token,JWT_SECRET)
-  console.log(decodedToken.id)
-  if(decodedToken){
-    req.userId = decodedToken.id
-    next()
-  }else{
+function auth(req, res, next) {
+  const token = req.headers.token;
+  const decodedToken = jwt.verify(token, JWT_SECRET);
+  console.log(decodedToken.id);
+  if (decodedToken) {
+    req.userId = decodedToken.id;
+    next();
+  } else {
     res.status(403).json({
-      msg : "Invalid Token"
-    })
+      msg: "Invalid Token",
+    });
   }
 }
 
 app.post("/signup", async (req, res) => {
+  const requiredBody = z.object({
+    email: z.string().min(5).max(30).email(),
+    password: z.string().min(8).max(20),
+    name: z.string().min(3).max(50),
+  });
+
+  const parseWithSuccess = requiredBody.safeParse(req.body);
+
+  if (!parseWithSuccess.success) {
+    res.status(403).json({
+      msg: "Invalid credentials",
+      error: parseWithSuccess.error,
+    });
+  }
+
   const email = req.body.email;
   const password = req.body.password;
   const name = req.body.name;
 
   //hashing the password
-  const hashedPassword = await bcrypt.hash(password,5)
+  const hashedPassword = await bcrypt.hash(password, 5);
 
   await UserModel.create({
     email: email,
@@ -56,13 +72,13 @@ app.post("/signin", async (req, res) => {
     email: email,
   });
 
-  if(!user){
+  if (!user) {
     res.status(403).json({
-      msg : "User doesn't exist in our database"
-    })
+      msg: "User doesn't exist in our database",
+    });
   }
 
-  const hashedPassword = await bcrypt.compare(password,user.password)
+  const hashedPassword = await bcrypt.compare(password, user.password);
 
   console.log(hashedPassword);
 
@@ -77,7 +93,6 @@ app.post("/signin", async (req, res) => {
     res.json({
       token: token,
     });
-    
   } else {
     res.status(403).json({
       msg: "Invalid credentials",
@@ -87,20 +102,19 @@ app.post("/signin", async (req, res) => {
 
 app.post("/login", (req, res) => {});
 
-app.post("/todo",auth,async (req, res) => {
-  const userId = req.userId
-  const title = req.body.title
+app.post("/todo", auth, async (req, res) => {
+  const userId = req.userId;
+  const title = req.body.title;
 
   await TodoModel.create({
-    userId :userId,
-    title : title
-  })
+    userId: userId,
+    title: title,
+  });
 
   res.json({
-    userId : userId,
-    title : title
-  })
-
+    userId: userId,
+    title: title,
+  });
 });
 
 app.get("/todos", (req, res) => {});
