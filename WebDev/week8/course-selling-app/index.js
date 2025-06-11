@@ -1,11 +1,17 @@
-const express = require('express')
-const app = express()
+const express = require("express");
+const { userRouter } = require("./routes/user");
+const { adminRouter } = require("./routes/admin");
+const { courseRouter } = require("./routes/course");
+const admin = require("./routes/admin");
+const app = express();
+const {UserModel,AdminModel,CourseModel,PurchaseModel} = require('./db')
 
-const PORT = 3000
+const PORT = 3000;
 
-//updated index.js
+app.use("/user", userRouter);
+app.use("/course", courseRouter);
+app.use('/admin',adminRouter)
 
-
-app.listen(PORT,()=>{
-    console.log(`Server started at ${PORT}`)
-})
+app.listen(PORT, () => {
+  console.log(`Server started at ${PORT}`);
+});
