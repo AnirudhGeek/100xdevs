@@ -1,9 +1,11 @@
 const { Router } = require("express");
 const {z} = require('zod')
 const bcrypt = require('bcrypt');
-const { AdminModel } = require("../db");
-
+const { AdminModel, CourseModel } = require("../db");
 const adminRouter = Router();
+const jwt = require('jsonwebtoken')
+const {JWT_ADMIN_PASSWORD} = require('../config');
+const { adminMiddleware } = require("../middlewares/admin");
 
 adminRouter.post("/signup",async (req, res) => {
   const { email, password, firstName, lastName } = req.body;
@@ -39,17 +41,47 @@ adminRouter.post("/signup",async (req, res) => {
   }
 });
 
+adminRouter.post("/signin",async (req, res) => {
+  const {email,password} = req.body
+  const admin =await AdminModel.findOne({
+    email : email
+  })
+  if(!admin){
+    res.status(404).json({
+      msg : "Admin not found. Please signin"
+    })
+    return
+  }
+  const hashedPassword = bcrypt.compare(password,admin.password)
+  if(hashedPassword){
+    const token = jwt.sign({
+      id : admin._id
+    },JWT_ADMIN_PASSWORD)
 
-adminRouter.post("/signin", (req, res) => {
-  res.json({
-    msg: "Sign in",
-  });
+    res.status(200).json({
+      token : token
+    })
+
+  }else{
+    res.status(403).json({
+      msg : "Wrong Credentials"
+    })
+    return
+  }
 });
 
-adminRouter.post("/", (req, res) => {
-  res.json({
-    msg: "Signed up",
-  });
+adminRouter.post("/",adminMiddleware, async(req, res) => {
+  const createrId = req.adminId
+  const {title, description,price,imageUrl} = req.body
+
+  const course = await CourseModel.create({
+    title,description,price,imageUrl,createrId
+  })
+
+  res.status(201).json({
+    msg : "Created a new course",
+    courseId : course._id
+  })
 });
 
 adminRouter.put("/", (req, res) => {

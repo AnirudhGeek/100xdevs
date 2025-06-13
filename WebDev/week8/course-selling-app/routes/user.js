@@ -3,6 +3,8 @@ const { UserModel } = require("../db");
 const bcrypt = require("bcrypt");
 const userRouter = Router();
 const { z } = require("zod");
+const jwt = require('jsonwebtoken')
+const {JWT_USER_PASSWORD} = require('../config')
 
 userRouter.post("/signup", async (req, res) => {
   const { email, password, firstName, lastName } = req.body;
@@ -38,10 +40,33 @@ userRouter.post("/signup", async (req, res) => {
   }
 });
 
-userRouter.post("/signup", (req, res) => {
-  res.json({
-    msg: "Signin endpoint",
-  });
+userRouter.post("/signin", async(req, res) => {
+  const {email,password} = req.body
+  const user =await UserModel.findOne({
+    email : email
+  })
+  if(!user){
+    res.status(404).json({
+      msg : "User not found. Please signin"
+    })
+    return
+  }
+  const hashedPassword = bcrypt.compare(password,user.password)
+  if(hashedPassword){
+    const token = jwt.sign({
+      id : user._id
+    },JWT_USER_PASSWORD)
+
+    res.status(200).json({
+      token : token
+    })
+
+  }else{
+    res.status(403).json({
+      msg : "Wrong Credentials"
+    })
+    return
+  }
 });
 
 userRouter.get("/purchases", (req, res) => {
