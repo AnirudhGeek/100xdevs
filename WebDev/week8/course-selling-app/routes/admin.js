@@ -70,7 +70,7 @@ adminRouter.post("/signin",async (req, res) => {
   }
 });
 
-adminRouter.post("/",adminMiddleware, async(req, res) => {
+adminRouter.post("/course",adminMiddleware, async(req, res) => {
   const createrId = req.adminId
   const {title, description,price,imageUrl} = req.body
 
@@ -84,16 +84,41 @@ adminRouter.post("/",adminMiddleware, async(req, res) => {
   })
 });
 
-adminRouter.put("/", (req, res) => {
-  res.json({
-    msg: "Signed up",
-  });
+adminRouter.put("/course",adminMiddleware,async (req, res) => {
+  const createrId = req.adminId
+  const {title,description,imageUrl,price,courseId} = req.body
+  const course = await CourseModel.updateOne({
+    _id : courseId,
+    createrId : createrId
+  },{
+    title,description,price,imageUrl
+  })
+  if(course){
+    res.status(200).json({
+      msg : "Updated course successfully"
+    })
+  }else{
+    res.json(405).json({
+      msg : "Not allowed to change specs"
+    })
+  }
 });
 
-adminRouter.get("/course/bulk", (req, res) => {
-  res.json({
-    msg: "Signed up",
-  });
+adminRouter.get("/course/bulk",adminMiddleware,async (req, res) => {
+  const createrId = req.adminId
+  const courses = await CourseModel.find({
+    createrId : createrId
+  })
+  if(courses){
+    res.status(200).json({
+      msg : "Got courses",
+      courses
+    })
+  }else{
+    res.status(404).json({
+      msg : "No courses found"
+    })
+  }
 });
 
 module.exports = {
