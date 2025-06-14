@@ -1,10 +1,11 @@
 const { Router } = require("express");
-const { UserModel } = require("../db");
+const { UserModel, CourseModel, PurchaseModel } = require("../db");
 const bcrypt = require("bcrypt");
 const userRouter = Router();
 const { z } = require("zod");
 const jwt = require('jsonwebtoken')
-const {JWT_USER_PASSWORD} = require('../config')
+const {JWT_USER_PASSWORD} = require('../config');
+const { userMiddleware } = require("../middlewares/user");
 
 userRouter.post("/signup", async (req, res) => {
   const { email, password, firstName, lastName } = req.body;
@@ -69,9 +70,18 @@ userRouter.post("/signin", async(req, res) => {
   }
 });
 
-userRouter.get("/purchases", (req, res) => {
+userRouter.get("/purchases",userMiddleware,async (req, res) => {
+  const userId = req.userId
+  console.log(userId)
+  const purchases = await PurchaseModel.find({
+    userId
+  })
+  const courseData = await CourseModel.find({
+    _id : {$in : purchases.map(x=>x.courseId)}  //$ in stands for is in, find me a course which has the _id is in this array  
+  })
   res.json({
-    msg: "Purchased a course",
+    purchases,
+    courseData
   });
 });
 
