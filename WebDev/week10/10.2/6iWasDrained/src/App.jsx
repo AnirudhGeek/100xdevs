@@ -1,11 +1,17 @@
-import React from 'react'
+import React from "react";
 
 const App = () => {
   return (
-    <div>
-      <img style={{marginLeft:"65%"}} src="https://pbs.twimg.com/media/GRDF1TdWsAAYtu5.jpg" alt="" />
-    </div>
-  )
-}
+    <div style={{ backgroundColor : "#dadada", width:"100%", height:"100vh", display:"flex", justifyContent:"center" , alignItems:"center"}}>
+      <div>hui hui hui</div>
 
-export default App
+      <img
+        style={{ marginLeft: "27%" }}
+        src="https://pbs.twimg.com/media/GRDF1TdWsAAYtu5.jpg"
+        alt=""
+      />
+    </div>
+  );
+};
+
+export default App;
