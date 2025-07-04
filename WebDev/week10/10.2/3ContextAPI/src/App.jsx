@@ -12,11 +12,12 @@ import BulbOnOff from './components/BulbOnOff'
 import BulbToggle from './components/BulbToggle'
 
 // STEP 1 : Define the context
+//note that whenever the context is created it is created outside the component chain(usually in a seperate file)
 export const BulbContext = createContext()
 const App = () => {
   const [bulbOnOff , setBulbOnOff] = useState(true)
   return (
-
+ 
     //STEP 2 : Provide the value you want children to have
     <BulbContext.Provider value={{
       bulbOnOff: bulbOnOff,
