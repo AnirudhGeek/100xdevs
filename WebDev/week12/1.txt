@@ -13,3 +13,5 @@ COLORS RESOURCES:-
     https://uicolors.app/generate/1141dc
     https://huemint.com/
     https://www.youtube.com/watch?v=srRI7yMjGz0
+
+Designing a website in figma
