@@ -17,3 +17,4 @@ COLORS RESOURCES:-
 Designing a website in figma.
 
 DesignCourse UI UX 
+Made responsive design
