@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -8,9 +10,11 @@
 }
 
 .wrapper {
+  height: 100vh;
   max-width: 840px;
   margin: 0 auto;
   /* background-color: red; */
+  position: relative;
 }
 
 .layout {
@@ -66,20 +70,20 @@
 }
 
 .hero-root {
-  padding: 100px 0px;
+  padding: 60px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .hero-button {
-  margin: 0 auto;
+  margin: auto;
   padding: 10px 10px;
   width: fit-content;
-  font-size: 16px;
+  font-size: 14px;
   background-color: #e5e5e5;
   border-radius: 15px;
-  border: 0.5px #d4d4d4;
+  border: 0.5px solid #d4d4d4;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,18 +92,100 @@
   cursor: pointer;
 }
 
+.hero-button h5 {
+  color: #202020;
+  font-weight: 500;
+}
+
 .hero-button:hover {
-  background-color: #e5e5e5;
-  transition: background-color 0.2s ease-out;
+  background-color: #d4d4d4;
+  transition: background-color 0.2s ease-out, border-color 0.2s ease-out;
 }
 
 .hero-title {
-  margin-top: 50px;
-  font-size: 28px;
+  color: hsl(231, 10%, 13%);
+  font-size: 32px;
   max-width: 650px;
   padding: 10px 15px;
-  margin: 0 auto;
+  margin: 50px auto 0;
   text-align: center;
   letter-spacing: -0.25px;
   line-height: 1.1;
+}
+
+.hero-title h1 {
+  font-weight: 600;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  font-family: "Manrope ";
+  max-width: 520px;
+  text-align: center;
+  margin: 25px auto;
+}
+
+.bottom-btn {
+  display: flex;
+  gap: 10px;
+}
+
+.pricing-btn {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-radius: 10px;
+}
+
+.pricing-btn:hover {
+  background-color: #d4e1ef;
+}
+
+.hero-btm {
+  margin: 30px 0 auto;
+  color: #a3a3a3;
+  font-size: 16px;
+}
+
+.left-line {
+  height: 100%;
+  width: 0.5px;
+  background-image: linear-gradient(to bottom, #e5e5e5, #e5e5e5, #fafafa);
+  position: absolute;
+  left: -20px;
+}
+
+.right-line {
+  height: 100%;
+  width: 0.5px;
+  background-image: linear-gradient(to bottom, #e5e5e5, #e5e5e5, #fafafa);
+  position: absolute;
+  right: -20px;
+}
+
+.hero-top-line {
+  height: 0.5px;
+  width: 100%;
+  background-image: linear-gradient(to right, #e5e5e5, #e5e5e5, #fafafa);
+  position: absolute;
+  bottom: -20px;
+}
+
+.hero-img-container {
+  position: relative;
+  margin: 20px auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-img {
+  position: absolute;
+  width: 800px;
+  /* height: 400px; */
+  margin: 25px auto;
+  border-radius: 25px;
+  box-shadow: 0.1px 0px 5px #e4e4e7;
 }
