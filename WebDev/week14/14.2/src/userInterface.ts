@@ -1,3 +1,6 @@
+// IMP => what is the difference between interfaces and types 
+//     => they do similar things one of the key difference is you can impliment interfaces as classes but you can't do it with types
+
 interface Address{
     city : string,
     country : string,
