@@ -1,1 +1,1 @@
-{"root":["./src/classthatimplicatestheinterface.ts","./src/index2.ts","./src/userinterface.ts"],"version":"5.9.2"}
+{"root":["./src/abstractclass.ts","./src/array.ts","./src/arrayuser.ts","./src/assignment.ts","./src/classthatimplicatestheinterface.ts","./src/index2.ts","./src/type.ts","./src/userinterface.ts"],"version":"5.9.2"}
