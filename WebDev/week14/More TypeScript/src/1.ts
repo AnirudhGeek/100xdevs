@@ -12,7 +12,6 @@ function inferedReturn(systemPrompt: string, userPrompt: string) {
 const infRe = inferedReturn("hey there", "from implicit return type");
 console.log(infRe);
 
-
 //function => explicit return type
 function explicitReturn(systemPrompt: string, userPrompt: string): string {
   return `${systemPrompt}\n${userPrompt}`;
@@ -21,9 +20,19 @@ function explicitReturn(systemPrompt: string, userPrompt: string): string {
 const expRe = explicitReturn("hey there", "from explicit return type");
 console.log(expRe);
 
-//void => returns nothing or void 
-function logSystemEvents(event : string, severity : "info" | "warning" | "error"){
-  console.log(`${event}\n${severity}`)
+//void => returns nothing(undefined) or void
+function logSystemEvents(
+  event: string,
+  severity: "info" | "warning" | "error"
+) {
+  console.log(`${event}\n${severity}`);
 }
 
-logSystemEvents("hey there","info")
+logSystemEvents("hey there", "info");
+
+
+// type Alias 
+type SupportResponse = (name: string) => string
+
+
+//doing some ts stuffs
