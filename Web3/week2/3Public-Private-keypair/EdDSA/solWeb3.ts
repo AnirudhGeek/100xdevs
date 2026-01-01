@@ -16,7 +16,7 @@ console.log("Private Key (Secret Key):", secretKey);
 const message = new TextEncoder().encode("hello world");
 
 const signature = nacl.sign.detached(message, secretKey);
-const result = nacl.sign?.detached.verify(
+const result = nacl.sign.detached.verify(
   message,
   signature,
   keypair.publicKey.toBytes(),
