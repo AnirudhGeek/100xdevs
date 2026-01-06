@@ -1,0 +1,20 @@
+         FRONTEND VS BACKEND  :-  https://petal-estimate-4e9.notion.site/Frontend-vs-Backend-HTTP-Servers-e07f8a4ac1f14a37ac9408ed07978344
+         
+         HTTP Request
+         ===============>
+     User                Backend Server
+        <==============
+            Response
+
+
+Backend Servers: Run your backend logic.
+Frontend: Interacts with backend servers via HTTP requests.
+Example of a traditional backend request: JSONPlaceholder API
+ 
+Postman: Allows sending requests to backend servers without using a browser.
+
+
+
+Something similar happens on block explorers as well. When you query an address it sends a request on blockchain network.
+Solscan :- https://solscan.io/
+Ethereum (ETH) Blockchain Explorer (etherscan.io) :- https://etherscan.io/
