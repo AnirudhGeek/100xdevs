@@ -1,0 +1,13 @@
+JSON-RPC is a remote procedure call (RPC) protocol encoded in JSON (JavaScript Object Notation). It allows for communication between a client and a server over a network. JSON-RPC enables a client to invoke methods on a server and receive responses, similar to traditional RPC protocols but using JSON for data formatting.
+
+As a user, you interact with the blockchain for two purposes - 
+
+1. To send a `transction`
+2. To fetch some details from the blockchain (balances etc)
+
+In both of these, the way to interact with the blockchain is using JSON-RPC
+
+JSON RPC Spec - https://www.jsonrpc.org/specification
+
+
+NOTE:-💡 There are other ways to do RPC’s like GRPC, TRPC
