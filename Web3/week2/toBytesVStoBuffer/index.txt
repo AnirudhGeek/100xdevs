@@ -1,0 +1,57 @@
+1️⃣ .toBytes()
+What it returns
+    =>Uint8Array (raw bytes)
+
+Characteristics
+    =>Web-standard
+    =>Works in browser + Node.js
+    =>Lightweight, no Node dependency
+    =>Preferred by modern crypto libraries
+
+Example: 
+    const bytes = key.toBytes();
+    console.log(bytes instanceof Uint8Array); // true
+
+When to use
+    =>Cryptography (hashing, signing, verification)
+    =>Web3 / blockchain libraries
+    =>Browser-friendly code
+    =>When a function expects Uint8Array
+
+
+2️⃣ .toBuffer()
+What it returns
+    =>Buffer (Node.js specific)
+
+Characteristics
+    =>Node-only (from buffer module)
+    =>Extends Uint8Array but adds extra methods
+    =>Not available in browsers unless polyfilled
+
+Example
+    const buf = key.toBuffer();
+    console.log(Buffer.isBuffer(buf)); // true
+
+When to use
+    =>Node.js file system (fs)
+    =>Streams
+    =>Legacy Node APIs
+    =>When an API explicitly requires Buffer
+
+
+3️⃣ Key Differences (Quick Table)
+Aspect	        .toBytes()	            .toBuffer()
+Return type	    Uint8Array	            Buffer
+Environment	    Browser + Node	        Node.js only
+Standard	    Web standard	        Node specific
+Size	        Lightweight	            Slightly heavier
+Crypto usage	✅ Preferred	            ⚠️ Legacy
+
+4️⃣ Important Relationship   i.e    Buffer instanceof Uint8Array // true
+            So:
+                =>Every Buffer is a Uint8Array
+                =>Not every Uint8Array is a Buffer
+
+5️⃣ Practical Rule of Thumb
+    =>Modern crypto / Web3 → .toBytes()
+    =>Node filesystem / old APIs → .toBuffer()
