@@ -16,21 +16,21 @@ const SolanaWallet = () => {
   const seed = mnemonic ? mnemonicToSeedSync(mnemonic) : null;
 
   async function handleClick() {
-    const nextIndex = index+1
-    setIndex(nextIndex);
     // console.log(mnemonic)
     // console.log(seed)
     console.log(index);
-    for (let i = 0; i < index; i++) {
-      console.log("ehy");
-      const path = `m/44'/501'/${i}'/0'`; //derivation path for solana
-      const derivedSeed = derivePath(path, seed.toString("hex")).key;
-      const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
-      const publicKey = Keypair.fromSecretKey(secret).publicKey.toBase58();
-      console.log(publicKey);
-      setPublicKeys(prev=>[...prev,publicKey]);
-      console.log(publicKeys);
-    }
+    
+    // console.log("ehy");
+    const path = `m/44'/501'/${index}'/0'`; //derivation path for solana
+    const derivedSeed = derivePath(path, seed.toString("hex")).key;
+    const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
+    const publicKey = Keypair.fromSecretKey(secret).publicKey.toBase58();
+    console.log(publicKey);
+    setPublicKeys(prev=>[...prev,publicKey]);
+    console.log(publicKeys);
+    const nextIndex = index+1
+    setIndex(nextIndex);
+
   }
 
   return (
