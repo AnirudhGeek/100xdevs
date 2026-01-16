@@ -1,0 +1,52 @@
+Confirm by running commands
+    => Get Solana version
+        solana --version
+
+    => Create your own keygen
+        solana-keygen new
+    
+    => Get your Solana address
+        solana address
+    
+    => Get your config file
+        solana config get
+
+
+RPC URL, Testnet, Devnet, and Mainnet
+
+What is an RPC URL?
+=> RPC (Remote Procedure Call) URLs allow applications like browsers, wallets, and users to interact with the Solana blockchain. 
+=> By sending requests to an RPC URL, you can query the blockchain and perform various operations.
+
+How to Use RPC URLs:
+Mainnet: https://api.mainnet-beta.solana.com
+Devnet: https://api.devnet.solana.com
+Testnet: https://api.testnet.solana.com
+
+Clusters and Public RPC Endpoints :- https://solana.com/docs/references/clusters
+
+
+Changing RPC URLs
+Use the following commands to set the appropriate RPC URL for your environment:
+    # Set RPC URL for Mainnet
+    solana config set --url https://api.mainnet-beta.solana.com
+
+    # Set RPC URL for Devnet
+    solana config set --url https://api.devnet.solana.com
+
+    # Set RPC URL for Testnet
+    solana config set --url https://api.testnet.solana.com
+
+Solana Networks
+=> Mainnet: The live Solana blockchain where real transactions occur. It’s secure and used for deploying production applications.
+=> Testnet: A testing environment that mimics the mainnet but is used for testing applications before deploying them to the mainnet. It does not use real SOL.
+=> Devnet: A development environment similar to the testnet but specifically for developers to experiment and test applications. You can freely request SOL from the Solana Devnet(https://faucet.solana.com/) Faucet for testing purposes.
+
+
+Using Devnet and Testnet
+=> Airdrop SOL: On Devnet, you can use the faucet to receive free SOL for testing.
+=> Local Testing: Use the Solana Test Validator to start a local validator for testing applications without relying on external networks.
+    solana-test-validator
+
+Solana Explorer
++>Explorer Tool: You can view transactions, account balances, and more on the Solana blockchain using the Solana Explorer, which supports Devnet, Testnet, Mainnet, and custom RPC URLs.

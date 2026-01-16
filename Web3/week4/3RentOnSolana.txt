@@ -1,0 +1,19 @@
+Rent on Solana
+=> Purpose of Rent: To prevent the blockchain from being clogged with inactive or unnecessary data, Solana charges rent for storing data.
+=> Rent Calculation: Rent is based on the storage size and the duration the account remains on the blockchain.
+=> Rent Exemption: If an account maintains a balance above a certain threshold, it becomes "rent-exempt," meaning it does not incur further rent charges. The rent paid is refundable when the account is closed.
+
+What is Rent on Solana and how it is calculated?? https://www.quicknode.com/guides/solana-development/getting-started/understanding-rent-on-solana
+
+
+
+Efficient Storage Management
+=> Incentivizing Minimal Storage: The rent model encourages users to store only the necessary data, reducing blockchain bloat.
+=> Removing Inactive Accounts: Accounts that fail to pay the required rent are eventually removed from the ledger, ensuring efficient use of blockchain resources.
+
+
+Calculating Rent-Exempt Threshold
+Methods to Calculate:
+=> Solana CLI: Command-line interface tools.
+=> Solana Web3.js Library: JavaScript library for interacting with the Solana blockchain.
+=> Anchor's Space Constraint: A framework-specific approach for calculating space requirements for accounts.
