@@ -1,5 +1,7 @@
 # Token Program on Solana
 
+https://petal-estimate-4e9.notion.site/Creating-a-token-b62f51d3b97e4706b8efd9cf432832e8
+
 This repository documents how **tokens work on Solana**, based on the **Solana Token Program**, and compares it with **Ethereum’s ERC-20 model**.  
 The explanation is derived from 100xDevs Web3 Cohort – Week 4 notes.
 
