@@ -135,3 +135,8 @@ These tokens run on existing blockchains like:
 > On Solana, a token is simply a **mapping between accounts and numbers**, managed by the Token Program.
 
 ---
+
+
+### Creating a Token using CLI
+
+### Creating a Token using JavaScript
