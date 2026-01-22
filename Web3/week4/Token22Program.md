@@ -48,3 +48,30 @@ spl-token mint 8fTM5XYRaoTJU9PLUuyakF3EypQ4RXLSHxKtiw2z9pQQ 100
 This command mints 100 tokens of the specified mint to your wallet’s token account.
 
 
+
+## Token 22 with metadata
+
+Metadata : https://cdn.100xdevs.com/metadata.json
+
+### Create a token with metadata enabled
+```
+spl-token --program-id TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb create-token --enable-metadata
+```
+
+### Create metadata
+```
+spl-token initialize-metadata pXfZ6Hg2s78m1iSRVsdzos9TmfkqkQdv5MmQrr77ZQK 100xx 100xxx https://cdn.100xdevs.com/metadata.json
+```
+
+### Create associated token account
+```
+ spl-token create-account pXfZ6Hg2s78m1iSRVsdzos9TmfkqkQdv5MmQrr77ZQK
+```
+
+### Mint
+```
+ spl-token mint 1000
+```
+
+### Check out the token in your wallet
+![Check out the token in your wallet](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Feb4566ea-3499-40d2-868e-56036b453147%2Fa04c8047-a9d7-46cd-a650-184fac480cfe%2Fimage.png?table=block&id=13f55dd0-a65c-4005-9302-8074a022f797&cache=v2)
