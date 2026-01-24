@@ -76,3 +76,24 @@ spl-token initialize-metadata pXfZ6Hg2s78m1iSRVsdzos9TmfkqkQdv5MmQrr77ZQK 100xx 
 
 ### Check out the token in your wallet
 ![Check out the token in your wallet](https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2Feb4566ea-3499-40d2-868e-56036b453147%2Fa04c8047-a9d7-46cd-a650-184fac480cfe%2Fimage.png?table=block&id=13f55dd0-a65c-4005-9302-8074a022f797&cache=v2)
+
+
+### Revised some backend concepts 
+ Intro & demo
+ Installing node js
+ Running JavaScript files with Node JS
+ Node module system
+ Node package manager
+ Path module
+ File system
+ HTTP Module
+ Callbacks and callback hell
+ Promises
+ Async Await
+ Event Emitter
+ Express JS
+ EJS Template engine
+ Rest API development
+ MongoDB and Mongoose basics
+ Book store API Development
+ Authentication and authorization
