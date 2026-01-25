@@ -10,3 +10,16 @@ Currently, two official plugins are available:
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+## Practiced hooks
+ useState hook
+ useEffect hook and manage dependency logics
+ data fetching using useEffect
+ manage loading state
+ useContext and react context api
+ useReducer hook
+ Todo list using material UI
+ Form handling
+ Form submission
+ dynamic form creation
