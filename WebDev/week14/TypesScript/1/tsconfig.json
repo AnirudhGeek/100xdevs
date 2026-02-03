@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "useUnknownInCatchVariables": true,
+    "strict": true,
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": ["src"]
+}

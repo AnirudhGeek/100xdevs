@@ -1,0 +1,17 @@
+{
+  "name": "1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build" : "tsc -p tsconfig.json",
+    "dev" : "tsc -w -p tsconfig.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "devDependencies": {
+    "typecript": "^0.0.1-security"
+  }
+}
