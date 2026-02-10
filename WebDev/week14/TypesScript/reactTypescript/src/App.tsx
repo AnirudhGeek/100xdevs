@@ -6,6 +6,7 @@ import {
 import { Badge } from "./components/04_As_Const_Variable";
 import { Button } from "./components/05_ComponentProps";
 import { Counter } from "./components/06_state";
+import { TypesReducer } from "./components/08_TypedUseReducer";
 
 const App = () => {
   return (
@@ -48,7 +49,8 @@ const App = () => {
       {/* <Badge label={"hey there"} varients="secondary"/>
       <Button varient="primary" onClick={()=>alert("Button clicked")}>Text</Button> */}
 
-       <Counter/>
+       {/* <Counter/> */}
+       <TypesReducer/>
     </div>
   );
 };
