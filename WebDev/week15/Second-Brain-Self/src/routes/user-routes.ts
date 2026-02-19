@@ -7,7 +7,7 @@ import { userAuthMiddleware } from "../middlewares/user-auth-middleware.js"
 router.post("/signup",userSignup)
 router.post("/signin",userSignIn)
 router.post("/content",userAuthMiddleware,postContent)
-router.get("/content",getContent)
+router.get("/content",userAuthMiddleware,getContent)
 router.delete("/content",deleteContent)
 
 export default router
