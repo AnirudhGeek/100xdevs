@@ -8,6 +8,6 @@ router.post("/signup",userSignup)
 router.post("/signin",userSignIn)
 router.post("/content",userAuthMiddleware,postContent)
 router.get("/content",userAuthMiddleware,getContent)
-router.delete("/content",deleteContent)
+router.delete("/content",userAuthMiddleware,deleteContent)
 
 export default router

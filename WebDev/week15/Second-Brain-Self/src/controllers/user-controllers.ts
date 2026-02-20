@@ -94,13 +94,23 @@ export const userSignIn = async (req: Request, res: Response) => {
 export const postContent = async (req: Request, res: Response) => {
   try {
     const { title, link, tags } = req.body;
-    //@ts-ignore
-    const userId = req.userId.id;
-    await ContentModel.create({ title, link, tags, userID: userId });
-    res.status(201).json({
-      success: false,
-      msg: "Content Posted!",
-    });
+    const userId = req.userId;
+    console.log(userId)
+
+    if(!userId){
+      return res.status(400).json({
+        success :false,
+        msg : "Cannot post the content!"
+      })
+    }
+    else{
+      await ContentModel.create({ title, link, tags, userID: userId });
+      res.status(201).json({
+        success: true,
+        msg: "Content Posted!",
+      });
+
+    }
   } catch (error) {
     console.log(error);
     res.status(400).json({
@@ -112,43 +122,72 @@ export const postContent = async (req: Request, res: Response) => {
 
 export const getContent = async (req: Request, res: Response) => {
   try {
-    
-    const userId = req.userId
-    const content = await ContentModel.find({userId}).populate("userId","username")
-  
-    res.status(200).json({
-      success : true,
-      content
-    })
+    const userId = req.userId;
+    // console.log(userId)
+    if (userId) {
+      const content = await ContentModel.find({ userID: userId }).populate(
+        "userID",
+        "username",
+      );
+      // console.log(content)
+      if(content.length===0){
+        return res.status(200).json({
+          success : true,
+          msg : "No data found! Add some content"
+        })
+      }
+      res.status(200).json({
+        success: true,
+        content,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        msg: "userId not found",
+      });
+    }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(400).json({
-      success : false,
-      msg : "Cannot get the content"
-    })
+      success: false,
+      msg: "Cannot get the content",
+    });
   }
 };
 
 export const deleteContent = async (req: Request, res: Response) => {
-
   try {
-    
-    const contentId = req.body.contentId
-  
-    await ContentModel.deleteMany({
-      contentId,
-      userId : req.userId
-    })
-  
-    res.status(200).json({
-      success : true,
-      msg : "Successfully deleted!"
-    })
+    const { contentId } = req.body;
+    const userId = req.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        msg: "Unauthorized",
+      });
+    }
+
+    const deletedContent = await ContentModel.findOneAndDelete({
+      _id: contentId,
+      userID: userId,
+    });
+
+    if (!deletedContent) {
+      return res.status(404).json({
+        success: false,
+        msg: "Content not found or not yours",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      msg: "Successfully deleted!",
+    });
+
   } catch (error) {
-    console.log(error)
-    res.status(400).json({
-      success : false,
-      msg : "Cannot delete content!"
-    })
+    return res.status(500).json({
+      success: false,
+      msg: "Cannot delete content!",
+    });
   }
 };

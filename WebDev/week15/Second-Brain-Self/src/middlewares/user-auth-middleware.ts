@@ -28,7 +28,8 @@ export function userAuthMiddleware(
         })
       }
 
-      req.userId = verifiedUser
+      //@ts-ignore
+      req.userId = verifiedUser.id
       next()
       
     }
