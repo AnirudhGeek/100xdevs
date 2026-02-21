@@ -1,4 +1,4 @@
-import { ShareIcon } from "../icon/ShareIcon";
+import type { ReactElement } from "react";
 
 type Variant = "primary" | "secondary";
 
@@ -6,8 +6,8 @@ interface ButtonProps {
   variant: Variant;
   size: "sm" | "md" | "lg";
   text: string;
-  startIcon?: any;
-  endIcon?: any;
+  startIcon?: ReactElement;
+  endIcon?: ReactElement;
   onClick?: () => void;
 }
 
@@ -26,7 +26,7 @@ const defaultStyles = "rounded-md py-2 hover:cursor-pointer flex items-center";
 
 export const Button = (props: ButtonProps) => {
   return (
-    <button
+    <button onClick={props?.onClick}
       className={`${variantStyle[props.variant]} ${defaultStyles} ${sizeStyles[props.size]}`}
     >
       {props.startIcon ? <div className="">{props.startIcon}</div> : null} {props.text}{" "}
