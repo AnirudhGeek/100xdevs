@@ -3,6 +3,8 @@ import { UserModel } from "../models/user-model.js";
 import { compare, genSalt, hash } from "bcrypt";
 import jwt from "jsonwebtoken";
 import { ContentModel } from "../models/content-model.js";
+import { LinkModel } from "../models/link-model.js";
+import { random } from "../utils.js";
 
 export const userSignup = async (req: Request, res: Response) => {
   const { username, password } = req.body;
@@ -95,21 +97,19 @@ export const postContent = async (req: Request, res: Response) => {
   try {
     const { title, link, tags } = req.body;
     const userId = req.userId;
-    console.log(userId)
+    console.log(userId);
 
-    if(!userId){
+    if (!userId) {
       return res.status(400).json({
-        success :false,
-        msg : "Cannot post the content!"
-      })
-    }
-    else{
+        success: false,
+        msg: "Cannot post the content!",
+      });
+    } else {
       await ContentModel.create({ title, link, tags, userID: userId });
       res.status(201).json({
         success: true,
         msg: "Content Posted!",
       });
-
     }
   } catch (error) {
     console.log(error);
@@ -130,11 +130,11 @@ export const getContent = async (req: Request, res: Response) => {
         "username",
       );
       // console.log(content)
-      if(content.length===0){
+      if (content.length === 0) {
         return res.status(200).json({
-          success : true,
-          msg : "No data found! Add some content"
-        })
+          success: true,
+          msg: "No data found! Add some content",
+        });
       }
       res.status(200).json({
         success: true,
@@ -183,7 +183,6 @@ export const deleteContent = async (req: Request, res: Response) => {
       success: true,
       msg: "Successfully deleted!",
     });
-
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -191,3 +190,76 @@ export const deleteContent = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const shareContent = async (req: Request, res: Response) => {
+  const { share } = req.body;
+  const userId = req.userId;
+
+  if (share) {
+    const alreadyExist = await LinkModel.findOne({
+      userId: userId,
+    });
+
+    if (alreadyExist) {
+      return res.status(200).json({
+        hash: alreadyExist.hash,
+      });
+    }
+
+    let hash = random(10);
+    await LinkModel.create({
+      userId: userId,
+      hash: hash,
+    });
+
+    return res.status(201).json({
+      success: true,
+      msg: "/api/v1/share/" + hash,
+    });
+  } else {
+    await LinkModel.deleteOne({
+      userId: userId,
+    });
+
+    return res.status(200).json({
+      success: true,
+      msg: "Removed Link successfully!",
+    });
+  }
+};
+
+
+export const shareable = async(req:Request , res: Response)=>{
+  const shareableLink = req.params.shareable
+  if(shareableLink){
+    const details = await LinkModel.findOne({
+      hash : shareableLink
+    }).populate("userId","_id")
+
+    if(!details){
+      return res.status(404).json({
+        success : false,
+        msg : "No Data found!"
+      })
+    }
+
+    const userId = ((details?.userId as any)._id).toString()
+    
+    const getContentFromID = await ContentModel.find({
+      userID : userId
+    })
+
+    if(!getContentFromID){
+      return res.status(404).json({
+        success : false,
+        msg : "Cannot find content"
+      })
+    }
+
+
+
+    res.json({
+      Content : getContentFromID
+    })
+  }
+}
