@@ -12,8 +12,8 @@ interface ButtonProps {
 }
 
 const variantStyle: Record<Variant, string> = {
-  primary: "bg-purple-300 text-purple-600",
-  secondary: "bg-purple-500 text-white",
+  primary: "bg-purple-300 text-purple-600 hover:bg-purple-400 hover:text-pruple-800",
+  secondary: "bg-purple-500 text-white hover:bg-purple-800",
 };
 
 const sizeStyles = {
@@ -22,7 +22,7 @@ const sizeStyles = {
   lg: "px-6",
 };
 
-const defaultStyles = "rounded-md py-2 hover:cursor-pointer flex items-center";
+const defaultStyles = "rounded-md py-2 hover:cursor-pointer flex items-center ";
 
 export const Button = (props: ButtonProps) => {
   return (

@@ -40,7 +40,7 @@ export const Card = ({ type, link, title }: CardProps) => {
           )}
 
           {type === "twitter" && (
-            <blockquote className="twitter-tweet min-h-112 min-w-64">
+            <blockquote className="twitter-tweet min-h-120 min-w-72">
               <a href={link.replace("x.com", "twitter.com")}></a>
             </blockquote>
           )}
