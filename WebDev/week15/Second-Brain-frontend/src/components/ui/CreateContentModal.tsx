@@ -1,47 +1,93 @@
+import { useRef, useState } from "react";
 import { CrossIcon } from "../icon/CrossIcon";
 import { Button } from "./Button";
+import { Input } from "./Input";
+import axios from "axios";
+import { BACKEND_URL } from "../../config";
 
 interface ContentModelProp {
-    open : boolean,
-    onClose : ()=>void
+  open: boolean;
+  onClose: () => void;
 }
 
-export const CreateContentModal = ({ open, onClose }:ContentModelProp) => {
-  return (
-    <div>
-      {open && (
-        <div className="w-full fixed top-0 left-0 opacity-40 h-full bg-slate-500 text-black flex justify-center items-center">
-          <div className=" bg-red-50 text-black p-4 rounded-lg">
-            <div onClick={onClose} className="flex justify-end pb-4 hover:cursor-pointer">
-              <CrossIcon />
-            </div>
-            <div className="flex flex-col gap-4 ">
-              <Input placeholder="Link" />
-              <Input placeholder="Title" />
-            </div>
-            <div className="flex justify-center pt-4">
+enum ContentType {
+  Youtube = "youtube",
+  Twitter = "twitter",
+}
 
-              <Button text="Submit" size="md" variant="secondary"/>
-            </div>
+export const CreateContentModal = ({ open, onClose }: ContentModelProp) => {
+  const titleRef = useRef<HTMLInputElement>(null);
+  const linkRef = useRef<HTMLInputElement>(null);
+  const [type, setType] = useState(ContentType.Youtube);
+
+  async function addContent() {
+    const title = titleRef.current?.value;
+    const link = linkRef.current?.value;
+
+    const response = await axios.post(`${BACKEND_URL}/api/v1/content`,{
+      title,
+      link,
+      type
+    },{
+      headers : {
+        "Authorization" : localStorage.getItem("token")
+      }
+    })
+
+    console.log(response)
+
+
+
+  }
+
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 flex justify-center items-center z-50">
+      {/* Overlay */}
+      <div
+        onClick={onClose}
+        className="absolute inset-0 bg-slate-500 opacity-40"
+      />
+
+      {/* Modal */}
+      <div className="relative bg-white text-black p-6 rounded-xl shadow-lg w-96 opacity-100 z-10">
+        <div onClick={onClose} className="flex justify-end pb-4 cursor-pointer">
+          <CrossIcon />
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <Input ref={titleRef} placeholder="Title" />
+          <Input ref={linkRef} placeholder="Link" />
+        </div>
+
+        <div className="pt-3">
+          <div className="flex items-center justify-evenly">
+          <h1 className="font-medium text-lg">Type</h1>
+            <Button
+              size="md"
+              text="Youtube"
+              variant={type === ContentType.Youtube ? "secondary" : "primary"}
+              onClick={() => setType(ContentType.Youtube)}
+            />
+            <Button
+              size="md"
+              text="Twitter"
+              variant={type === ContentType.Twitter ? "secondary" : "primary"}
+              onClick={() => setType(ContentType.Twitter)}
+            />
           </div>
         </div>
-      )}
+
+        <div className="flex justify-center pt-6">
+          <Button
+            onClick={addContent}
+            text="Submit"
+            size="md"
+            variant="secondary"
+          />
+        </div>
+      </div>
     </div>
-  );
-};
-
-interface InputProp {
-  onChange: () => void;
-  placeholder: "Link" | "Title";
-}
-
-const Input = ({ onChange, placeholder }: InputProp) => {
-  return (
-    <input
-      placeholder={placeholder}
-      onChange={onChange}
-      type="text"
-      className="px-2 text-base py-1 border rounded-md"
-    />
   );
 };

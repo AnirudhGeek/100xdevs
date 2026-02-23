@@ -1,61 +1,16 @@
-import { useState } from "react";
-import { PlusIcon } from "./components/icon/PlusIcon";
-import { ShareIcon } from "./components/icon/ShareIcon";
-import { Button } from "./components/ui/Button";
-import { Card } from "./components/ui/Card";
-import { CreateContentModal } from "./components/ui/CreateContentModal";
-import { Sidebar } from "./components/ui/Sidebar";
+import { Route, Routes } from "react-router-dom"
+import { Dashboard } from "./pages/Dashboard"
+import { Signin } from "./pages/Signin"
+import { SignUp } from "./pages/SignUp"
 
-const App = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+const App = () =>{
   return (
-    <div>
-      <Sidebar />
-      <div className="p-4 ml-72">
-        <CreateContentModal
-          open={modalOpen}
-          onClose={() => {
-            setModalOpen(false);
-          }}
-        />
+    <Routes>
+      <Route path="/signup" element={<SignUp/>}/>
+      <Route path="/signin" element={<Signin/>}/>
+      <Route path="/dashboard" element={<Dashboard/>}/>
+    </Routes>
+  )
+}
 
-        <div className="flex justify-between mt-1.5 mb-8">
-          <h1 className="text-3xl font-bold">
-            All Notes
-          </h1>
-          <div className="flex justify-end gap-3">
-            <Button
-              variant="primary"
-              size="md"
-              text="Share"
-              startIcon={<ShareIcon size="md" />}
-            />
-            <Button
-              variant="secondary"
-              size="md"
-              text="Add Content"
-              startIcon={<PlusIcon size="md" />}
-              onClick={() => setModalOpen(true)}
-            />
-          </div>
-        </div>
-
-        <div className="flex gap-4">
-          <Card
-            link="https://x.com/StaticRoutes/status/1960336205838688522"
-            title="Harkirat👏🏻"
-            type="twitter"
-          />
-          <Card
-            link="https://www.youtube.com/watch?v=Co3jhNSkUK8"
-            title="
-Four years after IIT in Four Minutes"
-            type="youtube"
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default App;
+export default App

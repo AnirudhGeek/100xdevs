@@ -9,8 +9,8 @@ import { SidebarItem } from "./SidebarItem"
 
 export const Sidebar = ()=>{
     return (
-        <div className="bg-white min-w-64 pt-2 pl-4 min-h-full border-r-2 border-gray-200 fixed left-0">
-            <div className="flex items-center text-3xl font-medium text-purple-500 gap-3 justify-start pb-10">
+        <div className="bg-white min-w-64 pt-2  min-h-full border-r-2 border-gray-200 fixed left-0">
+            <div className="flex items-center text-3xl pl-4 font-medium text-purple-500 gap-3 justify-start pb-10">
                 <BrainIcon/>
                 <h1 className="text-black">
                     Brainly
