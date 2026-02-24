@@ -3,6 +3,7 @@ dotenv.config();
 import express from "express";
 import { connectDB } from "./database/db.js";
 import userRouter from "./routes/user-routes.js";
+import cors from "cors";
 const app = express();
 let PORT;
 if (typeof process.env.PORT === "undefined") {
@@ -15,6 +16,7 @@ else {
 connectDB();
 //middlewares
 app.use(express.json());
+app.use(cors());
 //routes
 app.use("/api/v1", userRouter);
 //running server

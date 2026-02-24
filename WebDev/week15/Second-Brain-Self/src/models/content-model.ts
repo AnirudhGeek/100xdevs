@@ -3,6 +3,7 @@
     const ContentSchema = new Schema({
         title : {type : String},
         link : {type : String},
+        type : String,
         tags : [{type : String, ref : "Tag"}],
         userID : {type : mongoose.Types.ObjectId , ref : "User" , required : true}
     })

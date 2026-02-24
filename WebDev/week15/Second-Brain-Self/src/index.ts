@@ -3,6 +3,7 @@ dotenv.config()
 import express from "express"
 import { connectDB } from "./database/db.js"
 import userRouter from "./routes/user-routes.js" 
+import cors from "cors"
 
 const app = express()
 let PORT : number
@@ -19,6 +20,7 @@ connectDB()
 
 //middlewares
 app.use(express.json())
+app.use(cors())
 
 
 //routes

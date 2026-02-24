@@ -4,6 +4,7 @@ import { Button } from "./Button";
 import { Input } from "./Input";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
+import { useContent } from "../../hooks/useContent";
 
 interface ContentModelProp {
   open: boolean;
@@ -18,25 +19,30 @@ enum ContentType {
 export const CreateContentModal = ({ open, onClose }: ContentModelProp) => {
   const titleRef = useRef<HTMLInputElement>(null);
   const linkRef = useRef<HTMLInputElement>(null);
+  const {fetchContent} = useContent()
   const [type, setType] = useState(ContentType.Youtube);
 
   async function addContent() {
     const title = titleRef.current?.value;
     const link = linkRef.current?.value;
 
-    const response = await axios.post(`${BACKEND_URL}/api/v1/content`,{
+    console.log(title)
+    console.log(link)
+
+    console.log(localStorage.getItem("token"))
+
+    await axios.post(`${BACKEND_URL}/api/v1/content`,{
       title,
       link,
       type
     },{
       headers : {
-        "Authorization" : localStorage.getItem("token")
+        "Authorization" :"Bearer " + localStorage.getItem("token")
       }
     })
 
-    console.log(response)
-
-
+    fetchContent()
+    onClose()
 
   }
 

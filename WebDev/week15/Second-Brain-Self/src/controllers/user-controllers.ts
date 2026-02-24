@@ -80,7 +80,6 @@ export const userSignIn = async (req: Request, res: Response) => {
             id: userExist._id,
           },
           process.env.JWT_SECRET,
-          { expiresIn: "30m" },
         );
 
         return res.status(200).json({
@@ -94,8 +93,9 @@ export const userSignIn = async (req: Request, res: Response) => {
 };
 
 export const postContent = async (req: Request, res: Response) => {
+  
   try {
-    const { title, link, tags } = req.body;
+    const { title, link, tags, type } = req.body;
     const userId = req.userId;
     console.log(userId);
 
@@ -105,10 +105,11 @@ export const postContent = async (req: Request, res: Response) => {
         msg: "Cannot post the content!",
       });
     } else {
-      await ContentModel.create({ title, link, tags, userID: userId });
+      const content = await ContentModel.create({ title, link, tags, userID: userId, type });
       res.status(201).json({
         success: true,
         msg: "Content Posted!",
+        content
       });
     }
   } catch (error) {
@@ -156,8 +157,11 @@ export const getContent = async (req: Request, res: Response) => {
 };
 
 export const deleteContent = async (req: Request, res: Response) => {
+  console.log("ehy")
   try {
     const { contentId } = req.body;
+    console.log("BODY:",req.body)
+    console.log("ContentID : ",contentId)
     const userId = req.userId;
 
     if (!userId) {

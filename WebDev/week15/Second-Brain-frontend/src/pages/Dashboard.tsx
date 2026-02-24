@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlusIcon } from "../components/icon/PlusIcon";
 import { ShareIcon } from "../components/icon/ShareIcon";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { CreateContentModal } from "../components/ui/CreateContentModal";
 import { Sidebar } from "../components/ui/Sidebar";
+import { useContent } from "../hooks/useContent";
 
 export const Dashboard = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const {contents,fetchContent} = useContent()
+
+  useEffect(()=>{
+    fetchContent()
+  },[modalOpen])
+
   return (
     <div>
       <Sidebar />
@@ -40,18 +47,10 @@ export const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex gap-4">
-          <Card
-            link="https://x.com/StaticRoutes/status/1960336205838688522"
-            title="Harkirat👏🏻"
-            type="twitter"
-          />
-          <Card
-            link="https://www.youtube.com/watch?v=Co3jhNSkUK8"
-            title="
-Four years after IIT in Four Minutes"
-            type="youtube"
-          />
+        <div className="flex gap-4 flex-wrap">
+          {
+            contents.map(({type,link,title,_id})=><Card link={link} type={type} title={title} _id={_id}/>)
+          }
         </div>
       </div>
     </div>
