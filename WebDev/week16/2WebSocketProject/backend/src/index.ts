@@ -20,10 +20,16 @@ wss.on("connection",(socket)=>{
                 socket,
                 room : parsedMessage.payload.roomId
             })
+
+            socket.send("User joined the room")
         }
 
         if(parsedMessage.type === "chat"){
             const currentUserRoom = allSockets.find(x=>x.socket === socket)?.room
+
+            if(!currentUserRoom){
+                return socket.send("User ain't joined the room yet")
+            }
             //or
             // let currentUserRoooom = null
             // for(let i = 0; i< allSockets.length ; i++){
