@@ -33,3 +33,6 @@ Same as above, can be non uniqye
 created_at: The name of the fifth column, intended to store the timestamp when the user was created.
 TIMESTAMP WITH TIME ZONE: This data type stores both a timestamp and a time zone, allowing for the precise tracking of when an event occurred, regardless of the user's or server's time zone.
 DEFAULT CURRENT_TIMESTAMP: This default value automatically sets the created_at column to the date and time at which the row is inserted into the table, using the current timestamp of the database server.
+
+
+//working on some personal projects
