@@ -35,4 +35,29 @@ TIMESTAMP WITH TIME ZONE: This data type stores both a timestamp and a time zone
 DEFAULT CURRENT_TIMESTAMP: This default value automatically sets the created_at column to the date and time at which the row is inserted into the table, using the current timestamp of the database server.
 
 
-//working on some personal projects
+
+
+
+INTERACTING WITH THE DATABASE
+
+
+1.INSERT
+    INSERT INTO user(username, email, password) VALUES("anirudh11","annigeek@gmail.com","12345678");
+
+2.UPDATE
+    UPDATE users 
+    SET password = '151515'
+    WHERE username='anirudh11';
+
+3.DELETE
+    DELETE FROM users
+    WHERE id=1;
+
+4.DELETING THE WHOLE TABLE
+    DELETE FROM users;
+
+5.SELECTING ALL THE CONTENT OF THE TABLE
+    SELECT * FROM users;
+
+6.SELECTING specific CONTENT OF THE TABLE
+    SELECT username,password FROM users;
