@@ -1,21 +1,48 @@
-import {Client} from "pg";
+import dotenv from "dotenv";
+dotenv.config()
+import { Client } from "pg";
+import express from "express";
 
-// const pgClient2 = new Client("postgresql://neondb_owner:npg_IwWA8TdQ0kbq@ep-rapid-term-ai7m7m8j-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require")
 
-const pgClient =new Client({
-    user : "neondb_owner",
-    password : "npg_IwWA8TdQ0kbq",
-    port : 5432,
-    host : "ep-rapid-term-ai7m7m8j-pooler.c-4.us-east-1.aws.neon.tech",
-    database : "neondb",
-    ssl :true
-})
+const app = express();
 
-async function main(){
-    await pgClient.connect()
-    const response = await pgClient.query("SELECT * FROM users;")
-    // console.log(response)
-    console.log(response.rows)
+
+app.use(express.json());
+
+const pgClient = new Client(process.env.POSTGRES_URI);
+
+pgClient.connect();
+
+async function main() {
+  const createTable = await pgClient.query(
+    "CREATE TABLE newUser( id SERIAL PRIMARY KEY , username VARCHAR(50) NOT NULL UNIQUE, email VARCHAR(250) NOT NULL UNIQUE,password VARCHAR(50) NOT NULL , createdAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP)",
+  );
 }
+main();
 
-main()
+app.post("/signup", async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  const email = req.body.email;
+
+  try {
+    const response = await pgClient.query(
+      `INSERT INTO newUser(username , email , password) VALUES('${username}','${email}','${password}')`,
+    );
+
+    res.status(201).json({
+      success: true,
+      message: "User signed up successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({
+      success: false,
+      message: "Unable to add user",
+    });
+  }
+});
+
+app.listen(3000, () => {
+  console.log("Server is running on the port 3000");
+});
