@@ -1,11 +1,9 @@
 import dotenv from "dotenv";
-dotenv.config()
+dotenv.config();
 import { Client } from "pg";
 import express from "express";
 
-
 const app = express();
-
 
 app.use(express.json());
 
@@ -15,7 +13,7 @@ pgClient.connect();
 
 async function main() {
   const createTable = await pgClient.query(
-    "CREATE TABLE newUser( id SERIAL PRIMARY KEY , username VARCHAR(50) NOT NULL UNIQUE, email VARCHAR(250) NOT NULL UNIQUE,password VARCHAR(50) NOT NULL , createdAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP)",
+    "CREATE TABLE newUser( id SERIAL PRIMARY KEY , username VARCHAR(250) NOT NULL UNIQUE, email VARCHAR(250) NOT NULL UNIQUE,password VARCHAR(250) NOT NULL , createdAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP)",
   );
 }
 main();
@@ -26,9 +24,12 @@ app.post("/signup", async (req, res) => {
   const email = req.body.email;
 
   try {
-    const response = await pgClient.query(
-      `INSERT INTO newUser(username , email , password) VALUES('${username}','${email}','${password}')`,
-    );
+    const insertQuery = `INSERT INTO newUser(username , email , password) VALUES($1,$2,$3)`;
+    const response = await pgClient.query(insertQuery, [
+      username,
+      email,
+      password,
+    ]);
 
     res.status(201).json({
       success: true,
