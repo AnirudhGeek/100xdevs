@@ -1,14 +1,15 @@
-import axios from "axios"
+import axios from "axios";
+import { NextResponse } from "next/server";
 
-
-
-export default async function SignIn(){
-    const response = await axios.get("https://week-13-offline.kirattechnologies.workers.dev/api/v1/user/details")
-    const data = response.data
-    console.log("data went out")
-    return (
-        <div>
-            {data.name}  {data.email}
-        </div>
-    )
+export default async function SignIn() {
+  const response = await axios.get(
+    "https://localhost:3000/api/v1/user/details",
+  );
+  const data = response.data;
+  console.log("data went out");
+  return (
+    <div>
+      {data.name} {data.email}
+    </div>
+  );
 }
