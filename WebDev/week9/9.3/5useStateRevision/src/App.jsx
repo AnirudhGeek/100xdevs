@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -26,6 +26,9 @@ const App = () => {
   return (
     <div>
       <ToggleMessage />
+      <div>
+        <Counter />
+      </div>
       <AddPost />
       {posts.map((post) => (
         <PostComponent
@@ -39,6 +42,17 @@ const App = () => {
     </div>
   );
 };
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  useEffect(function () {
+    setInterval(() => {
+      console.log(count)
+      setCount(count=>count+1)
+    }, 1000);
+  }, []);
+  return <div>{count}</div>;
+}
 
 function PostComponent({ image, name, followers, time, description }) {
   return (

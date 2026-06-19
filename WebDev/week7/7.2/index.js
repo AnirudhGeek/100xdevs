@@ -9,9 +9,7 @@ const { z } = require("zod");
 
 const PORT = 3000;
 
-mongoose.connect(
-  ""
-);
+mongoose.connect(process.env.MONGO_URI);
 
 app.use(express.json());
 

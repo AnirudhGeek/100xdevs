@@ -5,7 +5,8 @@ const App = () => {
     <div>
       <b>Hi there</b>
       <Counter1 />
-      <Counter2 />
+      <Counter2 />  
+      <Counter3></Counter3>
     </div>
   );
 };
@@ -41,12 +42,14 @@ function Counter2() {
   //   setCount(count)
   // },1000)
   console.log("counter => it will logged every time the component re-renders");
-  useEffect(function(){
-    setInterval(function(){
-      setCount(count => count + 1)
-    },1000)
-    console.log("mounted => ie it will only run for 1time that is when the component renders for the first time")
-  },[])
+  useEffect(function () {
+    setInterval(function () {
+      setCount((count) => count + 1);
+    }, 1000);
+    console.log(
+      "mounted => ie it will only run for 1time that is when the component renders for the first time"
+    );
+  }, []);
   return (
     <div>
       <h1>{count}</h1>
@@ -54,4 +57,24 @@ function Counter2() {
   );
 }
 
+//conditional rendering every 5 seconds the counter will be visible and then its not 
+function Counter3() {
+  const [counterVisible , setCounterVisible] = useState(true);
+  useEffect(function(){
+    //runs on mount
+    const clock = setInterval(() => {
+      setCounterVisible(cv=>!cv)
+    }, 5000);
+
+    //runs on unmount
+    return function(){
+      console.log('on unmount')
+      clearInterval(clock)
+    }
+  },[])
+  return <div>
+    {counterVisible ? <Counter2/> : null}
+
+  </div>;
+}
 export default App;
